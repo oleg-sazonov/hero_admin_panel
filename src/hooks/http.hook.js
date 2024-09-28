@@ -23,11 +23,16 @@ export const useHttp = () => {
         }
     }, []);
 
+    const deleteRequest = useCallback(async (url, headers = {'Content-Type': 'application/json'}) => {
+        return await request(url, 'DELETE', null, headers);
+    }, [request]);
+
     // const clearError = useCallback(() => {
         // setProcess('loading');
     // }, []);
 
-    return {request, 
+    return {request,
+            deleteRequest 
             // clearError, 
             // process, 
             // setProcess

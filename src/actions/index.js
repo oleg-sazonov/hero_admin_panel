@@ -16,3 +16,10 @@ export const heroesFetchingError = () => {
         type: 'HEROES_FETCHING_ERROR'
     }
 }
+
+export const heroDeleted = (heroes, id) => {
+    return {
+        type: 'HERO_DELETED',
+        payload: heroes.filter(item => item.id !== id)
+    }
+}
