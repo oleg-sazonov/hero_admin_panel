@@ -27,12 +27,18 @@ export const useHttp = () => {
         return await request(url, 'DELETE', null, headers);
     }, [request]);
 
+    const postRequest = useCallback(async (url, body = {}, headers = {'Content-Type': 'application/json'}) => {
+        const stringifiedBody = JSON.stringify(body);
+        return await request(url, 'POST', stringifiedBody, headers);
+    }, [request]);
+
     // const clearError = useCallback(() => {
         // setProcess('loading');
     // }, []);
 
     return {request,
-            deleteRequest 
+            deleteRequest,
+            postRequest 
             // clearError, 
             // process, 
             // setProcess
