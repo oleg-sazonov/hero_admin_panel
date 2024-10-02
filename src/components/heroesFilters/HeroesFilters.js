@@ -10,11 +10,12 @@ import {useHttp} from '../../hooks/http.hook';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { filtersFetching, filtersFetched, filtersFetchingError } from '../../actions';
+import { filtersFetching, filtersFetched, filtersFetchingError, heroesFiltered} from '../../actions';
+import Spinner from '../spinner/Spinner';
 
 const HeroesFilters = () => {
     const [activeFilter, setActiveFilter] = useState('all');
-    const {filters} = useSelector(state => state);
+    const {filters, filtersLoadingStatus, heroes} = useSelector(state => state);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
@@ -27,13 +28,23 @@ const HeroesFilters = () => {
         // eslint-disable-next-line
     }, []);
 
+    useEffect(() => {
+        dispatch(heroesFiltered(heroes, activeFilter));
+        // eslint-disable-next-line
+    }, [activeFilter])
+
+    if (filtersLoadingStatus === "loading") {
+        return <Spinner/>;
+    } else if (filtersLoadingStatus === "error") {
+        return <h5 className="text-center mt-5">Ошибка загрузки</h5>
+    }
+
     const renderFiltersList = (arr) => {
         return arr.map(({id, name, className, element}) => {
             return <button 
-                    key={id}
-                    className={`${className}${activeFilter === element ? ' active' : ''}`}
-                    onClick={() => setActiveFilter(element)}
-                    >
+                        key={id}
+                        className={`${className}${activeFilter === element ? ' active' : ''}`}
+                        onClick={() => setActiveFilter(element)}>
                         {name}
                     </button>
         })

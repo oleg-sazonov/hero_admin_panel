@@ -29,10 +29,10 @@ const reducer = (state = initialState, action) => {
                 heroes: [...state.heroes, action.payload] 
             }
         case 'HERO_DELETED':
+            const newHeroList = state.heroes.filter(item => item.id !== action.payload);
             return {
                 ...state,
-                heroes: action.payload,
-                heroesLoadingStatus: 'idle'
+                heroes: newHeroList
             }
         case 'FILTERS_FETCHING':
             return {
