@@ -7,15 +7,15 @@
 // Представьте, что вы попросили бэкенд-разработчика об этом
 
 import {useHttp} from '../../hooks/http.hook';
-import { useEffect, useState } from 'react';
+import {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import classNames from 'classnames';
 
-import { filtersFetching, filtersFetched, filtersFetchingError, heroesFiltered} from '../../actions';
+import { filtersFetching, filtersFetched, filtersFetchingError, heroesFiltered, activeFilterChanged} from '../../actions';
 import Spinner from '../spinner/Spinner';
 
 const HeroesFilters = () => {
-    const [activeFilter, setActiveFilter] = useState('all');
-    const {filters, filtersLoadingStatus, heroes} = useSelector(state => state);
+    const {filters, filtersLoadingStatus, heroes, activeFilter} = useSelector(state => state);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
@@ -41,10 +41,15 @@ const HeroesFilters = () => {
 
     const renderFiltersList = (arr) => {
         return arr.map(({id, name, className, element}) => {
+
+            const btnClass = classNames('btn', className, {
+                'active': element === activeFilter
+            });
+
             return <button 
                         key={id}
-                        className={`${className}${activeFilter === element ? ' active' : ''}`}
-                        onClick={() => setActiveFilter(element)}>
+                        className={btnClass}
+                        onClick={() => dispatch(activeFilterChanged(element))}>
                         {name}
                     </button>
         })
