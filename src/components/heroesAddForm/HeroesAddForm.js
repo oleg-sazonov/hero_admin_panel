@@ -21,9 +21,10 @@ const HeroesAddForm = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [element, setElement] = useState('');
+
+    const {filters, filtersLoadingStatus} = useSelector(state => state);
     const dispatch = useDispatch();
     const { postRequest } = useHttp();
-    // const filters = useSelector(state => state.filters);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -36,6 +37,7 @@ const HeroesAddForm = () => {
         };
 
         postRequest("http://localhost:3001/heroes", newHero)
+            .then(res => console.log(res, 'Post success'))
             .then(data => {
                 dispatch(heroAdded(data));
             })
@@ -47,6 +49,23 @@ const HeroesAddForm = () => {
         setDescription('');
         setElement('');
     };
+
+    const renderFilters = (filters, status) => {
+        if (status === "loading") {
+            return <option>Загрузка элементов</option>
+        } else if (status === "error") {
+            return <option>Ошибка загрузки</option>
+        }
+        
+        if (filters && filters.length > 0 ) {
+            return filters.map(({name, element}) => {
+                // eslint-disable-next-line
+                if (element === 'all')  return;
+
+                return <option key={element} value={element}>{name}</option>
+            })
+        }
+    }
 
     return (
         <form 
@@ -89,10 +108,7 @@ const HeroesAddForm = () => {
                     onChange={(e) => setElement(e.target.value)}
                     >
                     <option >Я владею элементом...</option>
-                    <option value="fire">Огонь</option>
-                    <option value="water">Вода</option>
-                    <option value="wind">Ветер</option>
-                    <option value="earth">Земля</option>
+                    {renderFilters(filters, filtersLoadingStatus)}
                 </select>
             </div>
 

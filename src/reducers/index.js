@@ -2,8 +2,9 @@ const initialState = {
     heroes: [],
     heroesLoadingStatus: 'idle',
     filters: [],
+    filtersLoadingStatus: 'idle',
     activeFilter: 'all',
-    filtersLoadingStatus: 'idle'
+    filteredHeroes: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -17,23 +18,15 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 heroes: action.payload,
+                filteredHeroes: state.activeFilter === 'all' ?
+                                action.payload : 
+                                action.payload.filter(item => item.element === state.activeFilter),
                 heroesLoadingStatus: 'idle'
             }
         case 'HEROES_FETCHING_ERROR':
             return {
                 ...state,
                 heroesLoadingStatus: 'error'
-            }
-        case 'HERO_ADDED':
-            return {
-                ...state,
-                heroes: [...state.heroes, action.payload] 
-            }
-        case 'HERO_DELETED':
-            const newHeroList = state.heroes.filter(item => item.id !== action.payload);
-            return {
-                ...state,
-                heroes: newHeroList
             }
         case 'FILTERS_FETCHING':
             return {
@@ -51,16 +44,31 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 filtersLoadingStatus: 'error'
             }
-        case 'HEROES_FILTERED':
-            return {
-                ...state,
-                heroes: action.payload,
-                heroesLoadingStatus: 'idle'
-            }
         case 'ACTIVE_FILTER_CHANGED':
             return {
                 ...state,
-                activeFilter: action.payload
+                activeFilter: action.payload,
+                filteredHeroes: action.payload === 'all' ?
+                                state.heroes : 
+                                state.heroes.filter(item => item.element === action.payload)
+            }
+        case 'HERO_ADDED':
+            let newAddedHeroList = [...state.heroes, action.payload];
+            return {
+                ...state,
+                heroes: newAddedHeroList,
+                filteredHeroes: state.activeFilter === 'all' ?
+                                newAddedHeroList : 
+                                newAddedHeroList.filter(item => item.element === state.activeFilter) 
+            }
+        case 'HERO_DELETED':
+            const newHeroList = state.heroes.filter(item => item.id !== action.payload);
+            return {
+                ...state,
+                heroes: newHeroList,
+                filteredHeroes: state.activeFilter === 'all' ?
+                                newHeroList :
+                                newHeroList.filter(item => item.element === state.activeFilter)
             }
         default: return state
     }

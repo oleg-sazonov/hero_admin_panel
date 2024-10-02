@@ -31,13 +31,6 @@ export const heroAdded = (hero) => {
     }
 };
 
-export const heroesFiltered = (heroes, filterElement) => {
-    return {
-        type: 'HEROES_FILTERED',
-        payload: heroes.filter(item => item.element === filterElement || filterElement === "all")
-    }
-};
-
 export const filtersFetching = () => {
     return {
         type: 'FILTERS_FETCHING'
