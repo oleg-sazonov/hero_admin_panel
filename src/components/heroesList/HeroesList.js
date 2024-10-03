@@ -55,6 +55,7 @@ const HeroesList = () => {
                     timeout={500}
                     classNames="hero">
                     <HeroesListItem
+                        key={id}
                         {...props}
                         onDelete={() => onDeleteHero(id)}/>
                 </CSSTransition>

@@ -38,9 +38,7 @@ const HeroesAddForm = () => {
 
         postRequest("http://localhost:3001/heroes", newHero)
             .then(res => console.log(res, 'Post success'))
-            .then(data => {
-                dispatch(heroAdded(data));
-            })
+            .then(dispatch(heroAdded(newHero)))
             .catch(err => {
                 console.error("Failed to add hero", err);
             });
