@@ -25,15 +25,21 @@
       "element": "earth"
     },
     {
-      "id": "9a0e2f02-dfab-465e-9484-b22c883aa5c4",
-      "name": "Oleg Sazonov",
-      "description": "dfsggs",
-      "element": "fire"
-    },
-    {
       "id": "02567bde-b39a-447a-b803-d46f4130b288",
       "name": "Vasiliy",
       "description": "wds",
+      "element": "water"
+    },
+    {
+      "id": "5a8dd916-8d08-4eda-bc62-1bff6b3e0e11",
+      "name": "wewe",
+      "description": "wewe",
+      "element": "fire"
+    },
+    {
+      "id": "e8b53b92-dcc0-451f-aee7-6c1b6e26dc53",
+      "name": "wewe",
+      "description": "wwwww",
       "element": "water"
     }
   ],
