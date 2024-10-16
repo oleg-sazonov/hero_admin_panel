@@ -13,28 +13,16 @@
       "element": "water"
     },
     {
-      "id": "f3665d44-e82f-4daf-9b47-321951f2ede1",
-      "name": "Sasha",
-      "description": "Lisagrif",
-      "element": "fire"
-    },
-    {
-      "id": "a9ef7fee-fcc3-4401-be8a-2422fa6b837a",
+      "id": "ec0dc1d3-f734-49dd-a0b5-e44b2807d903",
       "name": "Oleg",
       "description": "loh",
       "element": "earth"
     },
     {
-      "id": "886349c1-b385-4ae1-9865-16d7a5edceff",
-      "name": "pup",
-      "description": "zalup",
+      "id": "b6e90730-a312-4e10-bba4-06c693c99420",
+      "name": "Sasha",
+      "description": "sssssss",
       "element": "fire"
-    },
-    {
-      "id": "9841a31a-ce0e-4940-b853-39a08cb8cc3d",
-      "name": "Vasiliy",
-      "description": "ch",
-      "element": "wind"
     }
   ],
   "filters": [

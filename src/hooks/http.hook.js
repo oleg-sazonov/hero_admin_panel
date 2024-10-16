@@ -16,18 +16,5 @@ export const useHttp = () => {
         }
     };
 
-    const deleteRequest = async (url, headers = {'Content-Type': 'application/json'}) => {
-        return await request(url, 'DELETE', null, headers);
-    };
-
-    const postRequest = async (url, body = {}, headers = {'Content-Type': 'application/json'}) => {
-        const stringifiedBody = JSON.stringify(body);
-        return await request(url, 'POST', stringifiedBody, headers);
-    };
-
-    return {
-        request,
-        deleteRequest,
-        postRequest 
-    }
+    return {request}
 }
